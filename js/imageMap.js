@@ -61,13 +61,14 @@ ImageMap.prototype = {
 
             for (var i = l - 1; i >= 0; i--) {
                 if (shapes[i].contains(pos.x, pos.y)) {
-                    console.log("Inside");
                     var el = shapes[i];
-                    that.dragoffx = pos.x - el.x;
-                    that.dragoffy = pos.y - el.y;
+
+                    that.dragoff.x = pos.x - el.x;
+                    that.dragoff.y = pos.y - el.y;
+                    console.log("Inside", el, that.dragoff);
                     that.dragging = true;
                     that.selection = el;
-                    that.update = false;
+                    that.update = true;
                     return;
                 }
             }
@@ -79,15 +80,19 @@ ImageMap.prototype = {
         }, true);
 
         canvas.addEventListener('mousemove', function(e) {
-            //console.log("mousemove");
+            if (that.dragging) {
+                var pos = that.getMousePosition(e, that.canvas);
+                that.selection.x = pos.x - that.dragoff.x;
+                that.selection.y = pos.y - that.dragoff.y;
+                that.update = true;
+            }
         }, true);
 
         canvas.addEventListener('mouseup', function(e) {
-            //console.log("mouseup");
+            that.dragging = false;
         }, true);
 
         canvas.addEventListener('dblclick', function(e) {
-            //console.log("dblclick");
             var pos = that.getMousePosition(e, that.canvas);
             that.addHotspot(pos);
         }, true);
