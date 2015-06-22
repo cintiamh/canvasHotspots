@@ -11,16 +11,21 @@
     Canvas is not supported. Please use Firefox or Chrome.
 </canvas>
 
-<script src="js/shape.js"></script>
-<script src="js/canvasState.js"></script>
+<script src="js/imageMap.js"></script>
+<script src="js/hotspot.js"></script>
+
 <script>
-    var s = new CanvasState(document.getElementById('canvas1'));
-    s.addShape(new Shape(40,40,50,50)); // The default is gray
+    (function() {
+//        var img = "http://3.bp.blogspot.com/-JW5q8Bi4Um8/UhiV7sLTYkI/AAAAAAAACcg/WglZ-mvSRcc/s1600/sdfsdf.png";
+        var imageMap = new ImageMap();
+    })();
+//    var s = new CanvasState(document.getElementById('canvas1'));
+//    s.addShape(new Shape(40,40,50,50)); // The default is gray
 //    s.addShape(new Shape(60,140,40,60, 'lightskyblue'));
 //    // Lets make some partially transparent
 //    s.addShape(new Shape(80,150,60,30, 'rgba(127, 255, 212, .5)'));
 //    s.addShape(new Shape(125,80,30,80, 'rgba(245, 222, 179, .7)'));
-    var img = "http://3.bp.blogspot.com/-JW5q8Bi4Um8/UhiV7sLTYkI/AAAAAAAACcg/WglZ-mvSRcc/s1600/sdfsdf.png";
+
 </script>
 </body>
 </html>

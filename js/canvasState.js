@@ -22,7 +22,7 @@ function CanvasState(canvas) {
 
     // **** Keep track of state! ****
 
-    this.valid = false; // when set to false, the canvas will redraw everything
+    this.update = false; // when set to false, the canvas will redraw everything
     this.shapes = [];  // the collection of things to be drawn
     this.dragging = false; // Keep track of when we are dragging
     // the current selected object. In the future we could turn this into an array for multiple selection
@@ -60,7 +60,7 @@ function CanvasState(canvas) {
                 myState.dragoffy = my - mySel.y;
                 myState.dragging = true;
                 myState.selection = mySel;
-                myState.valid = false;
+                myState.update = false;
                 return;
             }
             else {
@@ -71,7 +71,7 @@ function CanvasState(canvas) {
         // If there was an object selected, we deselect it
         if (myState.selection) {
             myState.selection = null;
-            myState.valid = false; // Need to clear the old selection border
+            myState.update = false; // Need to clear the old selection border
         }
     }, true);
     canvas.addEventListener('mousemove', function(e) {
@@ -81,7 +81,7 @@ function CanvasState(canvas) {
             // from where we clicked. Thats why we saved the offset and use it here
             myState.selection.x = mouse.x - myState.dragoffx;
             myState.selection.y = mouse.y - myState.dragoffy;
-            myState.valid = false; // Something's dragging so we must redraw
+            myState.update = false; // Something's dragging so we must redraw
         }
     }, true);
     canvas.addEventListener('mouseup', function(e) {
@@ -103,7 +103,7 @@ function CanvasState(canvas) {
 
 CanvasState.prototype.addShape = function(shape) {
     this.shapes.push(shape);
-    this.valid = false;
+    this.update = false;
 }
 
 CanvasState.prototype.clear = function() {
@@ -114,7 +114,7 @@ CanvasState.prototype.clear = function() {
 // It only ever does something if the canvas gets invalidated by our code
 CanvasState.prototype.draw = function() {
     // if our state is invalid, redraw and validate!
-    if (!this.valid) {
+    if (!this.update) {
         var ctx = this.ctx;
         var shapes = this.shapes;
         this.clear();
@@ -142,7 +142,7 @@ CanvasState.prototype.draw = function() {
 
         // ** Add stuff you want drawn on top all the time here **
 
-        this.valid = true;
+        this.update = true;
     }
 };
 
