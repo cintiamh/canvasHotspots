@@ -6,6 +6,7 @@ function ImageMap() {
 
     this.update = true;
     this.shapes = [];
+    this.selHandles = [];
     this.dragging = false;
     this.selection = null;
     this.dragoff = {
@@ -118,8 +119,10 @@ ImageMap.prototype = {
     },
 
     draw: function() {
+        var lineWidth = 2;
+        var selectSize = 6;
+        var selectColor = '#CC0000';
         if (this.update) {
-            console.log("Update!");
             this.clear();
 
             for (var i = 0; i < this.shapes.length; i++) {
@@ -130,13 +133,49 @@ ImageMap.prototype = {
                 }
                 this.shapes[i].draw(this.ctx);
             }
-            console.log("Selection", this.selection);
             if (this.selection) {
-
-                this.ctx.strokeStyle = '#CC0000';
-                this.ctx.lineWidth = 2;
-                var el = this.selection;
-                this.ctx.strokeRect(el.x, el.y, el.w, el.h);
+                console.log("Selection", this.selection);
+                this.selection.drawSelect(this.ctx);
+                //this.ctx.strokeStyle = selectColor;
+                //this.ctx.lineWidth = lineWidth;
+                //var el = this.selection;
+                //this.ctx.strokeRect(el.x, el.y, el.w, el.h);
+                //
+                //var half = selectSize / 2;
+                //
+                //// 0 1 2
+                //// 3   4
+                //// 5 6 7
+                //
+                //this.selHandles[0].x = el.x - half;
+                //this.selHandles[0].y = el.y - half;
+                //
+                //this.selHandles[1].x = el.x + el.w/2 - half;
+                //this.selHandles[1].y = el.y - half;
+                //
+                //this.selHandles[2].x = el.x + el.w - half;
+                //this.selHandles[2].y = el.y - half;
+                //
+                //this.selHandles[3].x = el.x - half;
+                //this.selHandles[3].y = el.y + el.h/2 - half;
+                //
+                //this.selHandles[4].x = el.x + el.w - half;
+                //this.selHandles[4].y = el.y + el.h/2 - half;
+                //
+                //this.selHandles[5].x = el.x - half;
+                //this.selHandles[5].y = el.y + el.h - half;
+                //
+                //this.selHandles[6].x = el.x + el.w/2 - half;
+                //this.selHandles[6].y = el.y + el.h - half;
+                //
+                //this.selHandles[7].x = el.x + el.w - half;
+                //this.selHandles[7].y = el.y + el.h - half;
+                //
+                //this.ctx.fillStyle = selectColor;
+                //for (var i = 0; i < this.selHandles.length; i++) {
+                //    var cur = this.selHandles[i];
+                //    this.ctx.fillRect(cur.x, cur.y, selectSize, selectSize);
+                //}
             }
 
             this.update = false;
